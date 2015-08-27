@@ -60,25 +60,57 @@ List.prototype = {
         Method: insertAtHead
         Insert a new Node at the head of the list.
     */
+    // Farquhar Maneuver
     insertAtHead: function(data) {
-        // Enter code here!
+        var temp = this.makeNode();
+        temp.data = data;
+        temp.next = this.start;
+        this.start = temp;
     },
 
     /*
         Method: length
         Traverse the list. Return the amount of Nodes in the list.
     */
+    // Kristian Longitude Analysis
+    // comments on what's going on.
     length: function() {
-        // Enter code here!
+        for (var current = this.start, i = 0; current !== null; current = current.next, i++) {}
+        return i;
+
     },
+
+    //Alternate, multiine method:
+    // length: function() {
+    //     var current = this.start;
+    //     var i = 0;
+    //     while(current !== null) {
+    //         i++;
+    //         current = current.next;
+    //     }
+    //     return i;
+    // },
+
 
     /*
         Method: exists
         Traverse the list. If a Node with the data passed in exists, then return
         true. If not, return false
     */
+    // Just a method
     exists: function(data) {
-        // Enter code here!
+        // start our node at the start of the list
+        var node = this.start;
+        // loops through list until node === null
+        while(node !== null){
+            // conditional check for data match
+            if(data === node.data){
+                return true;
+            }
+            // increment our node
+            node = node.next
+        }
+        return false;
     },
 
     /*
@@ -88,6 +120,7 @@ List.prototype = {
     */
     each: function(f) {
         // Enter code here!
+
     },
 
     /*
@@ -130,10 +163,35 @@ List.prototype = {
 
 /* LinkedList initialization */
 var LinkedList = new List();
+/* We're creating our "base" linkedList */
 var i = 2;
 while(i <= 20) {
     LinkedList.addAtEnd(i);
     i+=2;
 }
+/* print */
+console.log("Before:");
+LinkedList.print();
+/* Run your functions here */
+// Insert functions here to test.
+/* Print again to see your results */
 
+// check insertAtHead method
+LinkedList.insertAtHead("Breakfast Burrito");
+
+// check length method
+var length = LinkedList.length();
+console.log("Length: " + length);
+
+// check exists method
+var foundData = LinkedList.exists(8);
+console.log("Does 8 exist in our list: " + foundData);
+
+// check each method
+function accessor(node) {
+    console.log(node.data + " has been accessed.")
+}
+LinkedList.each(accessor);
+
+console.log("After");
 LinkedList.print();
