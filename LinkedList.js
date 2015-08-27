@@ -118,9 +118,13 @@ List.prototype = {
         Traverse the list. For each Node, call the function f on that Node.
         Example: f(current);
     */
+    // WillyWet
     each: function(f) {
-        // Enter code here!
-
+        var node = this.start;
+        while(node !== null) {
+            f(node);
+            node = node.next;
+        }
     },
 
     /*
@@ -128,8 +132,19 @@ List.prototype = {
         Traverse the list. If a Node with the data passed is found, return an
          index (integer) of that Node's location.
     */
+    // Nathan ... sortof
     indexOf: function(data) {
-        // Enter code here!
+        var node = this.start;
+        var i = 0;
+        while(node !== null) {
+            if (node.data === data) {
+                return i;
+            } else {
+                node = node.next;
+                i++;
+            }
+        }
+        return -1;
     },
 
     /*
@@ -145,8 +160,31 @@ List.prototype = {
         Traverse the List.  Find the ith Node in the list and insert a new Node
          after it.  You must preserve the list structure!
     */
+    // Big Bertha
     insertAt: function(i, data){
-        // Enter code here!
+        var previousNode;
+        var newNode = this.makeNode();
+        newNode.data = data;
+        var current = this.start;
+        var index = 0;
+        if(i > this.length() + 1){
+            return "index out of range";
+        }
+        if(i === 0){
+            this.insertAtHead(data);
+        }
+        while(current !== null){
+            if(index === i - 1){
+                newNode.next = current.next;
+                current.next = newNode;
+                if(i === this.length() - 1){
+                    this.end = newNode;
+                }
+                return "inserted";
+            }
+            index++;
+            current = current.next;
+        }
     },
 
     /*
@@ -192,6 +230,14 @@ function accessor(node) {
     console.log(node.data + " has been accessed.")
 }
 LinkedList.each(accessor);
+
+
+
+// check indexOf methodd
+var indexOfSix = LinkedList.indexOf(6);
+console.log("Index of six: " + indexOfSix);
+
+LinkedList.insertAt(3, 'Bertha');
 
 console.log("After");
 LinkedList.print();
